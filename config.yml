@@ -1,0 +1,3 @@
+Port: localhost:8080
+ReadTimeout: 5
+WriteTimeout: 10
