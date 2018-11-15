@@ -31,16 +31,22 @@ func config() *serverconfig {
 	return serverconfig
 }
 
+var (
+	Port         = config().Port
+	ReadTimeout  = time.Duration(config().ReadTimeout) * time.Second
+	WriteTimeout = time.Duration(config().WriteTimeout) * time.Second
+)
+
 func server() {
 	handler := http.NewServeMux()
 
 	handler.HandleFunc("/hello/", helloHandler)
 
 	s := http.Server{
-		Addr:         config().Port,
+		Addr:         Port,
 		Handler:      handler,
-		ReadTimeout:  time.Duration(config().ReadTimeout) * time.Second,
-		WriteTimeout: time.Duration(config().WriteTimeout) * time.Second,
+		ReadTimeout:  ReadTimeout,
+		WriteTimeout: WriteTimeout,
 	}
 	log.Fatal(s.ListenAndServe())
 
