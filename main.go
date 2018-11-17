@@ -41,7 +41,6 @@ func server() {
 	handler := http.NewServeMux()
 
 	handler.HandleFunc("/hello/", helloHandler)
-
 	s := http.Server{
 		Addr:         Port,
 		Handler:      handler,
@@ -58,14 +57,15 @@ func main() {
 }
 
 type resp struct {
-	Message string
-	Error   string
+	Message string `json:"Message"`
+	Error   string `json:"Error"`
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	resp := resp{
 		Message: "hello",
+		Error:   "null",
 	}
 	respJs, _ := json.Marshal(resp)
 	w.WriteHeader(http.StatusOK)
