@@ -32,14 +32,13 @@ type Serverconfig struct {
 	}
 }
 
-func ServerConfig() Serverconfig {
+func ServerConfig() *Serverconfig {
 	Filename, _ := filepath.Abs(Filename)
 	yamlFile, err := ioutil.ReadFile(Filename)
 	if err != nil {
 		panic(err)
 	}
 	Serverconfig := Serverconfig{}
-	//err = yaml.Decoder{ &Serverconfig}
 	err = yaml.Unmarshal(yamlFile, &Serverconfig)
 	f := Serverconfig.validate()
 	f()
@@ -47,5 +46,5 @@ func ServerConfig() Serverconfig {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return Serverconfig
+	return &Serverconfig
 }
